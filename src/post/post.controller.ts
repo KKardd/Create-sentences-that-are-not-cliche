@@ -23,12 +23,9 @@ export class PostController {
             session.hitsCount = [];
         }
         if (!session.hitsCount.includes(id)) {
-            await this.postService.incrementHit(id);
             session.hitsCount.push(id);
-            console.log(session.hitsCount);
-            return true;
+            return await this.postService.incrementHit(id);
         }
-        console.log(session.hitsCount);
         throw new BadRequestException("이미 hits를 누른 게시글입니다.");
     }
 }

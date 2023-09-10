@@ -6,7 +6,6 @@ import * as session from "express-session";
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
 
-    // somewhere in your initialization file
     app.use(
         session({
             secret: process.env.SESSION_SECRET_KEY,
