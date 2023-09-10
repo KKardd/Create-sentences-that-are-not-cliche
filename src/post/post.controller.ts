@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Post} from "@nestjs/common";
+import {Body, Controller, Get, Param, Post} from "@nestjs/common";
 import {PostService} from "./post.service";
 import {CreatePostDto} from "./dto/create-post.dto";
 
@@ -15,5 +15,10 @@ export class PostController {
     @Get()
     async getAll() {
         return await this.postService.getAll();
+    }
+
+    @Get("/:id")
+    async incrementHit(@Param("id") id: string) {
+        return await this.postService.incrementHit(id);
     }
 }

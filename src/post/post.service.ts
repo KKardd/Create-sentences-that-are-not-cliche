@@ -29,4 +29,10 @@ export class PostService {
             },
         });
     }
+
+    async incrementHit(postId: string) {
+        const post = await this.postRepository.findOne({where: {id: postId}});
+        post.hits++;
+        return this.postRepository.save(post);
+    }
 }
