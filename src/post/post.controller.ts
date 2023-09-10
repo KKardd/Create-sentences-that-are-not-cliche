@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Param, Post} from "@nestjs/common";
+import {BadRequestException, Body, Controller, Get, Param, Post, Session} from "@nestjs/common";
 import {PostService} from "./post.service";
 import {CreatePostDto} from "./dto/create-post.dto";
 
@@ -18,7 +18,17 @@ export class PostController {
     }
 
     @Get("/:id")
-    async incrementHit(@Param("id") id: string) {
-        return await this.postService.incrementHit(id);
+    async incrementHit(@Param("id") id: string, @Session() session: Record<string, any>) {
+        if (!session.hitsCount) {
+            session.hitsCount = [];
+        }
+        if (!session.hitsCount.includes(id)) {
+            await this.postService.incrementHit(id);
+            session.hitsCount.push(id);
+            console.log(session.hitsCount);
+            return true;
+        }
+        console.log(session.hitsCount);
+        throw new BadRequestException("이미 hits를 누른 게시글입니다.");
     }
 }
