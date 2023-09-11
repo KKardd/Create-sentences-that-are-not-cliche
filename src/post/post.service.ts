@@ -22,8 +22,10 @@ export class PostService {
         return this.postRepository.save(post);
     }
 
-    async getAll(): Promise<Array<SSMCardInfo>> {
+    async getPost(page: number = 1, list_num: number = 100): Promise<Array<SSMCardInfo>> {
         return this.postRepository.find({
+            take: list_num,
+            skip: (page - 1) * list_num,
             order: {
                 createdAt: "DESC",
             },

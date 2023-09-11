@@ -1,4 +1,4 @@
-import {BadRequestException, Body, Controller, Get, Param, Post, Session} from "@nestjs/common";
+import {BadRequestException, Body, Controller, Get, Param, Post, Query, Session} from "@nestjs/common";
 import {PostService} from "./post.service";
 import {CreatePostDto} from "./dto/create-post.dto";
 
@@ -13,8 +13,8 @@ export class PostController {
     }
 
     @Get()
-    async getAll() {
-        return await this.postService.getAll();
+    async getPost(@Query("page") page: number = 1, @Query("list_num") list_num: number = 100) {
+        return await this.postService.getPost(page, list_num);
     }
 
     @Get("/:id")
