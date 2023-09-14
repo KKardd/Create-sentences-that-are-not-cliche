@@ -1,5 +1,4 @@
 import {Injectable} from "@nestjs/common";
-import {ConfigService} from "@nestjs/config";
 import {InjectRepository} from "@nestjs/typeorm";
 import {PostEntity} from "./entities/post.entity";
 import {Repository} from "typeorm";
